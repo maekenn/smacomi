@@ -1,0 +1,133 @@
+<div class="container">
+  <div class="row">
+   <div class="col-md-3">
+    <table class="table review-index">
+    <h4>プロフィール</h4>
+     <% if user_signed_in? %>
+
+       <div class="form-group">
+        <% if @review.user.image.attached? %>
+         <%= image_tag @review.user.image, size: "200x200" %>
+        <% else %>
+         <%= image_tag 'no_image', size: "100x100" %>
+        <% end %>
+       </div>
+      　<div class="form-group">名前　<%= @review.user.name %></div>
+        <div class="form-group">年齢　<%= @review.user.age %></div>
+        <div class="form-group">性別　<%= @review.user.gender %></div>
+        <div class= "table table-hover table-bordered">コメント</br>
+         <%= @review.user.comment %>
+        </div>
+        <div class="form-group">
+          <tr>
+           <th>ご利用スマートフォン</th>
+          </tr>
+          <tr>
+           <td><%= @review.user.use_smartphone %></td>
+          </tr>
+        </div>
+        </table>
+        <div class="form-group">
+         <%if @review.user == current_user %>
+          <%= link_to "編集する",edit_user_path(current_user), class:"btn btn-success ml-5"%>
+         <% end %>
+        </div>
+      </div>
+     <% else %>
+
+        <div class="form-group"><%= image_tag 'no_image', size: "100x100" %></div>
+      　<div class= "form-group">名前</div>
+        <div class="form-group">年齢</div>
+        <div class="form-group">性別</div>
+        <div>
+         <tr>
+          <th>ご利用スマートフォン</th>
+         </tr>
+          <tr>
+            <td></td>
+          </tr>
+        </div>
+         <div class="form-group">コメント</div>
+         </table>
+        </div>
+     <% end %>
+
+
+   <div class= "col-3"></div>
+   <div class= "col-5 mx-1 items-center">
+      <h3><%= @review.user.name %>の口コミ
+      </h3>
+      <table>
+        <tr>
+         <div class="form-group">
+              <%= image_tag @review.get_image(150,150) %>
+         </div>
+        </tr>
+        <tr>
+         <div class="form-group">
+          <h5>機種名　<%= @review.smartphone_name %></h5>
+        </div>
+        </tr>
+
+        <tr>
+          <div class="form-group">
+            <h5>メーカー  <%= @review.manufacturer_name %></h5>
+          </div>
+        </tr>
+
+           <tr>
+            <div class="form-group">
+             <h5 class="average-review-rating" data-score=<%= @review.total %>>
+               評価　<%= @review.total %>点<br>
+             </h5>
+             </div>
+           </tr>
+
+       </table>
+
+        <div>
+         <h6>持ちやすさ　<%= @review.holding %></h6>
+        </div>
+
+        <div>
+         <h6>バッテリー　<%= @review.battery %></h6>
+        </div>
+
+        <div>
+         <h6>カメラ　　　<%= @review.camera %></h6>
+        </div>
+
+        <div>
+          <h6>レスポンス　<%= @review.response %></h6>
+        </div>
+
+        <tr>
+          <div class="form-group">
+           <h5 class= >口コミ</h5>
+            <div class= "table table-hover table-bordered">
+            <%= @review.kuchikomi %></div>
+
+        </tr>
+
+        <tr>
+        <div class="form-action">
+         <%if @review.user == current_user %>
+          <%= link_to "編集する",edit_review_path(@review.id), class:"btn btn-success ml-5"%>
+         <% end %>
+        </div>
+        </tr>
+    </div>
+
+    <script>
+    $('.average-review-rating').raty({
+     readOnly: true,
+     starOn: "<%= asset_path('star-on.png') %>",
+     starOff: "<%= asset_path('star-off.png') %>",
+     starHalf: "<%= asset_path('star-half.png') %>",
+     score: function() {
+      return $(this).attr('data-score')
+     }
+    });
+   </script>
+  </div>
+</div>

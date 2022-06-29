@@ -1,0 +1,71 @@
+<div class="container">
+ <div class="row d-flex justify-content-center">
+   <div class="d-flex align-items-center">
+     <%= image_tag @review.get_image(200,200) %>
+   </div>
+
+    <h2>投稿編集</h2>
+      <%= form_with model:@review, url:review_path(@review.id), method: :patch, local: true do |f| %>
+
+      <table>
+        <div>　</div>
+        <tr>
+         <div class="form-group">
+          <th><%= f.label :画像 %></th>
+          <td>
+              <%= f.file_field :image, accept: "image/*" %>
+          </td>
+          </div>
+        </tr>
+        <tr>
+         <div class="form-group">
+          <th><%= f.label :機種名 %></th>
+          <td><%= f.text_field :smartphone_name, placeholder:"機種名" %></td>
+        </div>
+        </tr>
+
+        <tr>
+          <div class="form-group">
+            <th><%= f.label :メーカー %></th>
+            <td>
+              <%= f.select :manufacturer_name, Review.manufacturer_names_i18n.keys.to_a, {} %>
+            </td>
+          </div>
+        </tr>
+       </table>
+
+        <div>
+         <label>持ちやすさ　</label>
+         <%= f.select :holding, *[1..5] %>
+        </div>
+
+        <div>
+         <label>バッテリー　</label>
+         <%= f.select :battery, *[1..5] %>
+        </div>
+
+        <div>
+         <label>カメラ　　　</label>
+         <%= f.select :camera, *[1..5] %>
+        </div>
+
+        <div>
+          <label>レスポンス　</label>
+         <%= f.select :response, *[1..5] %>
+        </div>
+            <label>口コミ</label>
+          <div>
+            <%= f.text_area :kuchikomi, size: "50x1", placeholder:"ここに口コミを記述します" %>
+          </div>
+
+
+        <tr>
+        <div class="form-action">
+          <%= f.submit "編集する", class:"btn btn-success" %>
+        </div>
+        </tr>
+
+      <% end %>
+    </div>
+ </div>
+</div>

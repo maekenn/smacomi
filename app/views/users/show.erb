@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="row">
+   <div class="col-xs-9">
+    <table class="table review-index">
+    <h4>プロフィール</h4>
+      イメージ
+        <div>名前　<%= current_user.name %></div>
+        <div>年齢　<%= current_user.age %></div>
+        <div>性別　<%= current_user.gender %></div>
+        <div>
+         <thead>
+          <th>ご利用スマートフォン</th>
+         </thead>
+         <tbody>
+          <tr>
+            <td><%= current_user.use_smartphone %></td>
+          </tr>
+         </tbody>
+        </div>
+         <div>コメント</div>
+         <%= current_user.comment %>
+        <p><%= link_to "編集する",edit_user_path(current_user), class:"btn btn-success ml-5"%></p>
+     </table>
+   </div>
+  </div>
+</div>

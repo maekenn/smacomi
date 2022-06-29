@@ -1,0 +1,7 @@
+ja:
+    enums:
+      user:
+        gender:
+          man: "男性"
+          woman: "女性"
+          not_select: "選択しない"

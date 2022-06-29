@@ -1,0 +1,96 @@
+<div class="container">
+  <div class="row">
+   <div class="col-md-3">
+    <table class="table review-index">
+    <h4>プロフィール</h4>
+       <div class="form-group">
+        <% if current_user.image.attached? %>
+         <%= image_tag current_user.image, size: "200x200" %>
+        <% else %>
+         <%= image_tag 'no_image', size: "100x100" %>
+        <% end %>
+       </div>
+      　<div class="form-group">名前　<%= current_user.name %></div>
+        <div class="form-group">年齢　<%= current_user.age %></div>
+        <div class="form-group">性別　<%= current_user.gender %></div>
+        <div class= "table table-hover table-bordered">コメント</br>
+         <%= current_user.comment %>
+        </div>
+        <div class="form-group">
+          <tr>
+           <th>ご利用スマートフォン</th>
+          </tr>
+          <tr>
+           <td><%= current_user.use_smartphone %></td>
+          </tr>
+        </div>
+        </table>
+        <div class="form-group">
+         <%= link_to "編集する",edit_user_path(current_user), class:"btn btn-success ml-5"%>
+        </div>
+      </div>
+
+
+   <div class="col-sm-8 px-sm-0 offset-sm-1">
+      <h2>新規投稿</h2>
+      <%= form_with model: @review, url: reviews_path, method: :post, local: true do |f| %>
+      <table>
+        <tr>
+         <div class="form-group">
+          <th><%= f.label :画像 %></th>
+          <td>
+              <%= f.file_field :image, accept: "image/*" %>
+          </td>
+          </div>
+        </tr>
+        <tr>
+         <div class="form-group">
+          <th><%= f.label :機種名 %></th>
+          <td><%= f.text_field :smartphone_name, placeholder:"機種名" %></td>
+        </div>
+        </tr>
+
+        <tr>
+          <div class="form-group">
+            <th><%= f.label :メーカー %></th>
+            <td><%= f.select :manufacturer, Review.manufacturer_names, {} %></td>
+          </div>
+        </tr>
+       </table>
+
+        <div>
+         <label>持ちやすさ　</label>
+         <%= f.select :holding, *[1..5] %>
+        </div>
+
+        <div>
+         <label>バッテリー　</label>
+         <%= f.select :battery, *[1..5] %>
+        </div>
+
+        <div>
+         <label>カメラ　　　</label>
+         <%= f.select :camera, *[1..5] %>
+        </div>
+
+        <div>
+          <label>レスポンス　</label>
+         <%= f.select :response, *[1..5] %>
+        </div>
+            <label>口コミ</label>
+          <div>
+            <%= f.text_area :kuchikomi, size: "50x1", placeholder:"ここに口コミを記述します" %>
+          </div>
+
+
+        <tr>
+        <div class="form-action">
+          <%= f.submit "新規登録", class:"btn btn-success" %>
+        </div>
+        </tr>
+
+      <% end %>
+    </div>
+
+  </div>
+</div>
